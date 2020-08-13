@@ -14,16 +14,26 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.conf.urls import url, include
-from django.urls import path
+from django.urls import path, include
+from django.views.generic import RedirectView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    url(r'^$', include('qa.urls')),
-    url(r'^login/', include('qa.urls')),
-    url(r'^signup/', include('qa.urls')),
-    url(r'^question/[0-9]*', include('qa.urls')),
-    url(r'^ask/', include('qa.urls')),
-    url(r'^popular/', include('qa.urls')),
-    url(r'^new/', include('qa.urls')),
+    path('admin/', admin.site.urls),
+    path('qa/', include('qa.urls')),
+    path('', RedirectView.as_view(url='/qa/', permanent=True)),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+"""
+
+
+urlpatterns = [
+    re_path(r'^login', include('qa.urls')),
+    re_path(r'^signup', include('qa.urls')),
+    re_path(r'^question/[0-9]*', include('qa.urls')),
+    re_path(r'^ask', include('qa.urls')),
+    re_path(r'^popular', include('qa.urls')),
+    re_path(r'^new', include('qa.urls')),
     path('admin/', admin.site.urls),
 ]
+"""

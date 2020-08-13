@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1>New questions</h1>
+{% for question in newest_questions %}
+<h2>
+  <a class="title"  href="http://127.0.0.1:8000/qa/question/{{question.pk}}">{{question.title}}</a>
+</h2>
+<h4>{{ question.text }}</h4>
+<a href=""><h6>{{ question.author }}</h6> </a>
+<hr>
+{% endfor %}
+{% include "pagination.html" with page=posts %}
+{% endblock %}

@@ -1,13 +1,15 @@
-from django.conf.urls import url, include
+from django.urls import path, re_path
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.test),
-    url(r'^login/', views.test),
-    url(r'^signup/', views.test),
-    url(r'^question/[0-9]*', views.test),
-    url(r'^ask/', views.test),
-    url(r'^popular/', views.test),
-    url(r'^new/', views.test),
+    path('', views.main_page),
+    path('login', views.login),
+    path('signup', views.test),
+    path('question/<int:pk>', views.question_num),
+    path('ask', views.ask_q),
+    path('popular', views.popular),
+    path('new', views.new),
 
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
