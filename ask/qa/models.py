@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import Q
 
 
 class QuestionManager(models.Manager):
@@ -27,18 +26,17 @@ class Question(models.Model):
     def __str__(self):
         return self.title
 
+    def get_url(self):
+        prim_key = str(self.pk)
+        return 'http://127.0.0.1:8000/qa/question/'+str(prim_key)
 
 
 class Answer(models.Model):
+    objects = QuestionManager()
     text = models.TextField()
     added_at = models.DateTimeField(auto_now_add=True, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    author = models.CharField(max_length=64)
+    author = models.CharField(max_length=16)
 
     def __str__(self):
         return self.author
-
-
-
-
-

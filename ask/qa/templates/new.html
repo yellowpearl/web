@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1>New questions</h1>
-{% for question in newest_questions %}
+{% for question in questions %}
 <h2>
   <a class="title"  href="http://127.0.0.1:8000/qa/question/{{question.pk}}">{{question.title}}</a>
 </h2>
@@ -10,5 +10,22 @@
 <a href=""><h6>{{ question.author }}</h6> </a>
 <hr>
 {% endfor %}
-{% include "pagination.html" with page=posts %}
+
+<div class="pagination">
+    <span class="step-links">
+        {% if questions.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ questions.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
+        </span>
+
+        {% if questions.has_next %}
+            <a href="?page={{ questions.next_page_number }}">next</a>
+            <a href="?page={{ questions.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 {% endblock %}

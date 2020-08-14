@@ -1,25 +1,12 @@
 {% extends "index.html" %}
 
 {% block content %}
-<div>
-    <h2 class="title">{{ question.title }}</h2>
-    <h4>{{ question.text }}</h4>
-    <h6>{{ question.author }} {{question.added_at}}</h6>
-    <hr>
-</div>
-{% for answer in answers %}
-<div>
-    <span><h3> {{ answer.author }} </h3></span><span><h6> {{answer.added_at}} </h6></span>
-    <h5> {{answer.text }} </h5>
-    <hr>
-</div>
-{% endfor %}
 
 {% for e in form.non_field_errors %}
     <div class="alert_red">{{ e }}</div>
 {% endfor %}
 
-<form class="form-horizontal" method="post" action="{{question.pk}}">
+<form class="form-horizontal" method="post" action="ask">
     {% csrf_token %}
     <fieldset>
         {% for field in form %}
@@ -33,5 +20,6 @@
         <button type="submit" class="btn btn-primary">Сохранить</button>
     </div>
 </form>
+
 
 {% endblock %}
