@@ -1,8 +1,8 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from .models import Question, QuestionManager, Answer
+from .models import Question, Answer
 from django.core.paginator import Paginator
-from .forms import AskNewQuestionForm, AnswerOnQuestionForm
+from .forms import AskNewQuestionForm, AnswerOnQuestionForm, SignUpForm, LoginForm
 
 
 def main_page(request):
@@ -23,7 +23,8 @@ def question_num(request, **kwargs):
     if request.method == 'POST':
         form = AnswerOnQuestionForm(request.POST)
         if form.is_valid():
-            answer = form.save()
+            answer = form.save(pk)
+            answer.save()
             return HttpResponseRedirect(question.get_url())
     else:
         form = AnswerOnQuestionForm()
@@ -68,12 +69,26 @@ def ask_q(request):
                   },)
 
 
+def signup(request, *args, **kwargs):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            signup_form = form.save()
+            return HttpResponseRedirect('http://127.0.0.1:8000/qa')
+    else:
+        form = SignUpForm()
+    return render(request,
+                  'signup.html',
+                  context={
+                      'form': form
+                  }, )
+
+
 def login(request, *args, **kwargs):
     return HttpResponse('OK')
 
 
-def signup(request, *args, **kwargs):
-    return HttpResponse('OK')
+
 
 
 
