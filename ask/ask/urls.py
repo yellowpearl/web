@@ -24,16 +24,7 @@ urlpatterns = [
     path('qa/', include('qa.urls')),
     path('', RedirectView.as_view(url='/qa/', permanent=True)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-"""
 
-
-urlpatterns = [
-    re_path(r'^login', include('qa.urls')),
-    re_path(r'^signup', include('qa.urls')),
-    re_path(r'^question/[0-9]*', include('qa.urls')),
-    re_path(r'^ask', include('qa.urls')),
-    re_path(r'^popular', include('qa.urls')),
-    re_path(r'^new', include('qa.urls')),
-    path('admin/', admin.site.urls),
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
-"""
