@@ -5,11 +5,10 @@ from . import views
 
 urlpatterns = [
     path('', views.main_page),
-    path('login', views.login),
-    path('signup', views.signup),
     path('question/<int:pk>', views.question_num),
     path('ask', views.ask_q),
     path('popular', views.popular),
+    path('signup', views.register),
     path('new', views.new),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
