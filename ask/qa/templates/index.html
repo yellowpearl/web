@@ -1,42 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        {% block title %}<title>Q&A</title>{% endblock %}
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    </head>
+    <body>
+    <header class="header">
+<nav class="navbar navbar-expand-lg fixed-top ">
+    <a class="navbar-brand" href="http://0.0.0.0:8000/qa">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-4">
+            <li class="nav-item">
+                <a class="nav-link " href="http://0.0.0.0:8000/qa/new">New</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="http://0.0.0.0:8000/qa/popular">Popular</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="http://0.0.0.0:8000/qa/ask">Ask</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'logout'%}?next={{request.path}}">{{ user.get_username }}</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'login'%}?next={{request.path}}">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="http://0.0.0.0:8000/qa/signup?next={{request.path}}">Signup</a>
+                </li>
+            {% endif %}
+        </ul>
 
-<head>
-  {% block title %}<title>Q&A</title>{% endblock %}
-  <meta charset="utf-8">
-  {% load static %}
-  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </div>
+</nav>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
 
-</head>
+                </div>
 
-<body>
+                {% block content %}{% endblock %}
 
-<div id="header">
-    <ul class="hr">
-        <li><a href="http://127.0.0.1:8000/qa">Main</a></li>
-        <li><a href="http://127.0.0.1:8000/qa/new">New</a></li>
-        <li><a href="http://127.0.0.1:8000/qa/popular">Popular</a></li>
-        <li><a href="http://127.0.0.1:8000/qa/ask">Ask</a></li>
-        {% if user.is_authenticated %}
-            <li>User: {{ user.get_username }}</li>
-            <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>
-        {% else %}
-            <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>
-        {% endif %}
-    </ul>
+                <div class="col-sm">
 
-</div>
-<div id="body">
-    {% block new5 %}{% endblock %}
-    {% block popular5 %}{% endblock %}
-    {% block content %}{% endblock %}
-</div>
+                </div>
+            </div>
+    </div>
 
 
 
 
-</body>
 
+
+    </body>
 </html>
 
 

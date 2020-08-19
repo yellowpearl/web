@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import time
+
 
 class QuestionManager(models.Manager):
     def new(self):
@@ -28,7 +30,10 @@ class Question(models.Model):
 
     def get_url(self):
         prim_key = str(self.pk)
-        return 'http://127.0.0.1:8000/qa/question/'+str(prim_key)
+        return 'http://0.0.0.0:8000/qa/question/'+str(prim_key)
+
+    def get_time(self):
+        return self.added_at.strftime('%d.%m.%Y %H:%M')
 
 
 class Answer(models.Model):
@@ -41,4 +46,6 @@ class Answer(models.Model):
     def __str__(self):
         return self.author
 
+    def get_time(self):
+        return self.added_at.strftime('%d.%m.%Y %H:%M')
 

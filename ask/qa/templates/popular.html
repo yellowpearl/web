@@ -1,31 +1,51 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h1>Most popular questions</h1>
-{% for question in questions %}
-<h2>
-  <a class="title"  href="http://127.0.0.1:8000/qa/question/{{question.pk}}">{{question.title}}</a>
-</h2>
-<h4>{{ question.text }}</h4>
-<a href=""><h6>{{ question.author }}</h6> </a>
+<div class="col-sm-8" id="main-cont">
+<h1 class="toptext">Most popular questions</h1>
 <hr>
+{% for question in questions %}
+<div>
+    <h2><a class="question_title"  href="http://0.0.0.0:8000/qa/question/{{question.pk}}">{{question.title}}</a></h2>
+    <h4>{{ question.text }}</h4>
+    <h6 class="timepost"><a class="author" href="#"> {{ question.author }} </a>{{question.get_time}}</h6>
+    <hr>
+</div>
 {% endfor %}
 
-<div class="pagination">
-    <span class="step-links">
-        {% if questions.has_previous %}
-            <a href="?page=1">&laquo; first</a>
-            <a href="?page={{ questions.previous_page_number }}">previous</a>
-        {% endif %}
+<nav aria-label="pagnav">
+  <ul class="pagination justify-content-center" id="pagnav">
+      {% if questions.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="First">
+                <span aria-hidden="true">1</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ questions.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+      {% endif %}
+      <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">{{ questions.number }}</span>
+            </a>
+      </li>
+      {% if questions.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ questions.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ questions.paginator.num_pages }}" aria-label="Previous">
+                <span aria-hidden="true">{{ questions.paginator.num_pages }}</span>
+            </a>
+        </li>
+      {% endif %}
 
-        <span class="current">
-            Page {{ questions.number }} of {{ questions.paginator.num_pages }}.
-        </span>
-
-        {% if questions.has_next %}
-            <a href="?page={{ questions.next_page_number }}">next</a>
-            <a href="?page={{ questions.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
-    </span>
+  </ul>
+</nav>
 </div>
 {% endblock %}

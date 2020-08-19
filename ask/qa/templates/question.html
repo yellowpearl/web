@@ -1,37 +1,51 @@
 {% extends "index.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-<div>
-    <h2 class="title">{{ question.title }}</h2>
-    <h4>{{ question.text }}</h4>
-    <h6>{{ question.author }} {{question.added_at}}</h6>
+<div class="col-sm-8" id="main-cont">
+<div class="question">
+    <h2 class="question_title">{{ question.title }}</h2>
+    <h4 class="question_text">{{ question.text }}</h4>
+    <h6 class="timepost"><a class="author" href="#"> {{ question.author }} </a>{{question.get_time}}</h6>
     <hr>
 </div>
-{% for answer in answers %}
-<div>
-    <span><h3> {{ answer.author }} </h3></span><span><h6> {{answer.added_at}} </h6></span>
-    <h5> {{answer.text }} </h5>
-    <hr>
-</div>
-{% endfor %}
 
 {% for e in form.non_field_errors %}
     <div class="alert_red">{{ e }}</div>
 {% endfor %}
 
-<form class="form-horizontal" method="post" action="{{question.pk}}">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Save person</button>
+    </form>
+
+
+{% for answer in answers %}
+<div>
+    <h5 class="timepost"><a class="author" href="#"> {{ answer.author }} </a><span class="time_answer">{{answer.get_time}}</span></h5>
+    <h5> {{answer.text }} </h5>
+    <hr>
+</div>
+{% endfor %}
+
+
+
+
+</div>
+{% endblock %}
+
+{% for e in form.non_field_errors %}
+    <div class="alert_red">{{ e }}</div>
+{% endfor %}
+<form class="form-horizontal" method="POST" action="{{question.pk}}">
     {% csrf_token %}
-    <fieldset>
-        {% for field in form %}
-        <div class="control-group{% if field.errors %}has-error{% endif %}">
-            <label class="control-label">{{ field.label }}</label>
-            <div class="controls">{{ field }}</div>
-            </div>
-        {% endfor %}
-    </fieldset>
+    <div class="form-group">
+        <textarea class="form-control" id="exampleFormControlTextarea" rows="2"></textarea>
+    </div>
+
     <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <button type="submit" class="btn btn-primary">Send</button>
     </div>
 </form>
-
-{% endblock %}
+<hr>
