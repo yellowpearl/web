@@ -23,6 +23,12 @@
     margin-top: 55px;
     background-color: #e4e4e4;
 }
+
+.col-sm-5{
+    margin-top: 55px;
+    background-color: #e4e4e4;
+}
+
 .toptext{
     text-align: center;
     padding-top: 15px;
@@ -53,4 +59,16 @@ text-decoration:none;
 
 .time_answer{
     font-size: 14px;
+}
+
+.ask_form{
+    padding-top: 25px;
+}
+
+.btn-success{
+    padding-bottom: 10px;
+}
+
+.perenos{
+    word-break:break-all;
 }

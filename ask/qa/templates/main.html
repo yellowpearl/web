@@ -1,28 +1,25 @@
 {% extends "index.html" %}
 
-{% block new5 %}
-<div id="new">
-  <h1>New questions</h1>
+{% block content %}
+<div class="col-sm-5" >
+<div id="new" class="perenos">
+  <h1 class="toptext">New questions</h1>
 {% for question in newest_questions %}
-    <h2>
-      <a class="title" href="http://127.0.0.1:8000/qa/question/{{question.pk}}">{{question.title}}</a>
-    </h2>
-    <a class="author" href=""><h6>{{ question.author }}</h6> </a>
-  <hr>
+    <h2><a class="question_title"  href="http://0.0.0.0:8000/qa/question/{{question.pk}}">{{question.title}}</a></h2>
+    <h6 class="timepost"><a class="author" href="#"> {{ question.author }} </a>{{question.get_time}}</h6>
+    <hr>
 {% endfor %}
 </div>
-{% endblock %}
+</div>
 
-
-{% block popular5 %}
-<div id="popular">
-  <h1>Most popular questions</h1>
+<div class="col-sm-5" >
+<div id="popular" class="perenos">
+    <h1 class="toptext">Most popular questions</h1>
 {% for question in popular_questions %}
-  <h2>
-    <a class="title"  href="http://127.0.0.1:8000/qa/question/{{question.pk}}">{{question.title}}</a>
-  </h2>
-  <a class="author" href=""><h6>{{ question.author }}</h6> </a>
-  <hr>
+    <h2><a class="question_title"  href="http://0.0.0.0:8000/qa/question/{{question.pk}}">{{question.title}}</a></h2>
+    <h6 class="timepost"><a class="author" href="#"> {{ question.author }} </a>{{question.get_time}}</h6>
+    <hr>
 {% endfor %}
+</div>
 </div>
 {% endblock %}

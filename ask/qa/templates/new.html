@@ -7,7 +7,7 @@
 {% for question in questions %}
 <div>
     <h2><a class="question_title"  href="http://0.0.0.0:8000/qa/question/{{question.pk}}">{{question.title}}</a></h2>
-    <h4>{{ question.text }}</h4>
+    <h4>{{ question.short_text }}</h4>
     <h6 class="timepost"><a class="author" href="#"> {{ question.author }} </a>{{question.get_time}}</h6>
     <hr>
 </div>

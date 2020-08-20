@@ -1,7 +1,8 @@
 {% extends "index.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-
+<div class="col-sm-4" id="main-cont">
+  <p></p>
 {% if form.errors %}
   <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
@@ -15,26 +16,13 @@
   {% endif %}
 {% endif %}
 
-<form method="post" action="{% url 'login' %}">
-{% csrf_token %}
-<table>
+<form class="ask_form" method="post" novalidate>
+  {% csrf_token %}
+  {{ form|crispy }}
 
-<tr>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-</tr>
-
-<tr>
-  <td>{{ form.password.label_tag }}</td>
-  <td>{{ form.password }}</td>
-</tr>
-</table>
-
-<input type="submit" value="login" />
-<input type="hidden" name="next" value="{{ next }}" />
+  <button type="submit" class="btn btn-success">Login</button>
 </form>
 
-{# Assumes you setup the password_reset view in your URLconf #}
 <p><a href="{% url 'password_reset' %}">Lost password?</a></p>
-
+</div>
 {% endblock %}

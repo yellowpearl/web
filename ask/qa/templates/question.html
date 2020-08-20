@@ -17,9 +17,9 @@
     <form method="post" novalidate>
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-success">Save person</button>
+        <button type="submit" class="btn btn-success">Send</button>
     </form>
-
+<hr>
 
 {% for answer in answers %}
 <div>

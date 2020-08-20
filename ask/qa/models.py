@@ -35,6 +35,12 @@ class Question(models.Model):
     def get_time(self):
         return self.added_at.strftime('%d.%m.%Y %H:%M')
 
+    def short_text(self):
+        if len(self.text)>140:
+            return self.text[:140]+'...'
+        else:
+            return self.text
+
 
 class Answer(models.Model):
     objects = QuestionManager()
@@ -48,4 +54,3 @@ class Answer(models.Model):
 
     def get_time(self):
         return self.added_at.strftime('%d.%m.%Y %H:%M')
-

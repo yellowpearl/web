@@ -1,25 +1,20 @@
 {% extends "index.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
-
+<div class="col-sm-8" id="main-cont">
 {% for e in form.non_field_errors %}
     <div class="alert_red">{{ e }}</div>
 {% endfor %}
 
-<form class="form-horizontal" method="post" action="ask">
-    {% csrf_token %}
-    <fieldset>
-        {% for field in form %}
-        <div class="control-group{% if field.errors %}has-error{% endif %}">
-            <label class="control-label">{{ field.label }}</label>
-            <div class="controls">{{ field }}</div>
-            </div>
-        {% endfor %}
-    </fieldset>
-    <div class="form-actions">
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-    </div>
-</form>
 
+
+    <form class="ask_form" method="post" novalidate>
+        {% csrf_token %}
+        {{ form.title|as_crispy_field }}
+        {{ form.text|as_crispy_field }}
+
+        <button type="submit" class="btn btn-success">Send</button>
+    </form>
+</div>
 
 {% endblock %}
