@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-import time
 
 
 class QuestionManager(models.Manager):
@@ -36,7 +35,7 @@ class Question(models.Model):
         return self.added_at.strftime('%d.%m.%Y %H:%M')
 
     def short_text(self):
-        if len(self.text)>140:
+        if len(self.text) > 140:
             return self.text[:140]+'...'
         else:
             return self.text
